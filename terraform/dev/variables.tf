@@ -9,5 +9,5 @@ variable "environment" {
 
 variable "bucket_name" {
   type    = string
-  default = "my-unique-bucket-adeem-12345"
+  default = "my-unique-bucket-newmybucket-213214321"
 }
