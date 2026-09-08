@@ -21,10 +21,10 @@ jobs:
           terraform_version: 1.13.0
         
       - name: Terraform Format Check
-        run: terraform -chdir=../../terraform/dev fmt
+        run: terraform -chdir=terraform/dev fmt
 
       - name: Terraform Init
-        run: terraform -chdir=../../terraform/dev init
+        run: terraform -chdir=terraform/dev init
     
       - name: Terraform Validate
-        run: terraform -chdir=../../terraform/dev validate
+        run: terraform -chdir=terraform/dev validate
