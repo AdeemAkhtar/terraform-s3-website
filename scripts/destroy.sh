@@ -72,8 +72,7 @@ destroyresources() {
     aws s3 rm "s3://$BUCKET_NAME" --recursive
 
     terraform -chdir="../terraform/$ENVIRONMENT" destroy \
-        --auto-approve \
-        -var="environment=$ENVIRONMENT"
+        --auto-approve
 }
 
 main(){

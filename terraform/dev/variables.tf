@@ -5,6 +5,7 @@ variable "aws_region" {
 
 variable "environment" {
   type = string
+  default = "dev"
 }
 
 variable "bucket_name" {

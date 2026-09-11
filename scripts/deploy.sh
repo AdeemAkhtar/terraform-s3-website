@@ -68,8 +68,7 @@ terraformplan(){
     echo
     echo "INFO: Creating Terraform plan..." | tee -a "$LOG_FILE"
 
-    terraform -chdir=../terraform/$ENVIRONMENT plan \
-        -var="environment=$ENVIRONMENT"
+    terraform -chdir=../terraform/$ENVIRONMENT plan
 }
 
 terraformapply(){
@@ -77,8 +76,7 @@ terraformapply(){
     echo "INFO: Applying Terraform..." | tee -a "$LOG_FILE"
 
     terraform -chdir=../terraform/$ENVIRONMENT apply \
-        --auto-approve \
-        -var="environment=$ENVIRONMENT"
+        --auto-approve
 }
 
 deploy_website(){
