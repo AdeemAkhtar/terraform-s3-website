@@ -55,5 +55,6 @@ jobs:
       - name: Test AWS Identity
         run: aws sts get-caller-identity
 
+        
       - name: Terraform Plan
         run: terraform -chdir=terraform/dev plan
