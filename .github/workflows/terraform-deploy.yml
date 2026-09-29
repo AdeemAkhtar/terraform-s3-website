@@ -24,12 +24,6 @@ jobs:
         with:
           terraform_version: 1.13.0
 
-      - name: Terraform Init
-        run: terraform -chdir=terraform/dev init
-
-      - name: Terraform Validate
-        run: terraform -chdir=terraform/dev validate
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -39,6 +33,12 @@ jobs:
 
       - name: Test AWS Identity
         run: aws sts get-caller-identity
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform/dev init
+
+      - name: Terraform Validate
+        run: terraform -chdir=terraform/dev validate
 
       - name: Terraform Apply
         run: terraform -chdir=terraform/dev apply -auto-approve

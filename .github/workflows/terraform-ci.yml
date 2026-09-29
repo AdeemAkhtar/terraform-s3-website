@@ -37,6 +37,16 @@ jobs:
         with:
           terraform_version: 1.13.0
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+
+      - name: Test AWS Identity
+        run: aws sts get-caller-identity
+        
       - name: Terraform Format Check
         run: terraform -chdir=terraform/dev fmt -check
 
@@ -53,15 +63,5 @@ jobs:
           echo "Event: $GITHUB_EVENT_NAME"
           echo "Actor: $GITHUB_ACTOR"
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: us-east-1
-          audience: sts.amazonaws.com
-
-      - name: Test AWS Identity
-        run: aws sts get-caller-identity
-        
       - name: Terraform Plan
-        run: terraform -chdir=terraform/dev plan
+        run: terraform -chdir=terraform/dev plan -var="environment=dev" -lock-timeout=5m
