@@ -9,7 +9,7 @@ on:
 concurrency:
   group: terraform-dev
   cancel-in-progress: false
-  
+
 jobs:
   terraform-deploy:
     name: Terraform Apply
@@ -48,7 +48,12 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=terraform/dev apply -auto-approve
 
-      - name: Make Web Deployment Script Executable
+      - name: Deploy Website to S3
         run: |
-          chmod +x scripts/web_deploy.sh
-          ./scripts/web_deploy.sh dev
+          BUCKET_NAME=$(terraform -chdir=terraform/dev output -raw bucket_name)
+
+          echo "Deploying website to S3 bucket: $BUCKET_NAME"
+
+          aws s3 sync website/ "s3://$BUCKET_NAME" --delete
+
+          echo "Website deployment completed successfully."
