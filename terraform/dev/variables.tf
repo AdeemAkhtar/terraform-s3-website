@@ -8,7 +8,7 @@ variable "aws_region" {
 
 # The environment variable can be used to specify the environment for which the Terraform configuration is being applied (e.g., dev, staging, prod).
 variable "environment" {
-  type = string
+  type    = string
   default = "dev"
 }
 
