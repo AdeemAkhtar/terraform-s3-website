@@ -46,9 +46,9 @@ jobs:
       - name: Make Web Deployment Script Executable
         run: |
           cd ../scripts
-          chmod +x deploy_web.sh
+          chmod +x web_deploy.sh
 
       - name: Execute Web Deployment Script
         run: |
           cd ../scripts
-          ./deploy_web.sh
+          ./web_deploy.sh
