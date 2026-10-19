@@ -46,4 +46,4 @@ jobs:
         run: terraform -chdir=terraform/dev validate
 
       - name: Terraform Apply
-        run: terraform -chdir=terraform/dev apply -auto-approve
+        run: terraform -chdir=terraform/dev apply -auto-approve -lock-timeout=5m
