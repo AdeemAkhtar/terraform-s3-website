@@ -7,6 +7,7 @@ ENVIRONMENT=$1
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Deploy the website files to the S3 bucket
 deploy_website(){
     echo
     echo "INFO: Uploading Website Files to S3 Bucket..."
