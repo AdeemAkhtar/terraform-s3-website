@@ -28,5 +28,4 @@ main(){
     echo "INFO: Website Deployment complete!"
     echo
 }
-
 main "$@"
