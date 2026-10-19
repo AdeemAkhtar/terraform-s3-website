@@ -2,14 +2,15 @@
 
 set -e
 
+ENVIRONMENT=$1
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 deploy_website(){
     echo
     echo "INFO: Uploading Website Files to S3 Bucket..."
-    ls $PROJECT_DIR/website/
-    #aws s3 sync "$PROJECT_DIR/website/" s3://$BUCKET_NAME --delete
+    aws s3 sync "$PROJECT_DIR/website/" s3://$BUCKET_NAME --delete
     echo "INFO: Website deployed successfully!"
 }
 
