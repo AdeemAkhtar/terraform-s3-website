@@ -1,0 +1,41 @@
+
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/**'
+      - '.github/workflows/deploy-website.yml'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Assumes your AWS OIDC role is already configured.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Deploy Website to S3
+        run: |
+          BUCKET_NAME=$(terraform -chdir=terraform/dev output -raw bucket_name)
+
+          echo "Deploying website to S3 bucket: $BUCKET_NAME"
+
+          aws s3 sync website/ "s3://$BUCKET_NAME" --delete
+
+          echo "Website deployment completed successfully."

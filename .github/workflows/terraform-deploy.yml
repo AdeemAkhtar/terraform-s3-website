@@ -47,13 +47,3 @@ jobs:
 
       - name: Terraform Apply
         run: terraform -chdir=terraform/dev apply -auto-approve
-
-      - name: Deploy Website to S3
-        run: |
-          BUCKET_NAME=$(terraform -chdir=terraform/dev output -raw bucket_name)
-
-          echo "Deploying website to S3 bucket: $BUCKET_NAME"
-
-          aws s3 sync website/ "s3://$BUCKET_NAME" --delete
-
-          echo "Website deployment completed successfully."
