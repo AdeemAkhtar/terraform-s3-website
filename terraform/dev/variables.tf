@@ -9,6 +9,7 @@ variable "aws_region" {
 # The environment variable can be used to specify the environment for which the Terraform configuration is being applied (e.g., dev, staging, prod).
 variable "environment" {
   type = string
+  default = "dev"
 }
 
 # The bucket_name variable can be used to specify the name of the S3 bucket to be created.
