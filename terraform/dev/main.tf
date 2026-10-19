@@ -1,3 +1,5 @@
+# Declaration of the S3 bucket resource
+
 resource "aws_s3_bucket" "mybucket" {
   bucket = "${var.bucket_name}-${var.environment}"
 
@@ -7,6 +9,7 @@ resource "aws_s3_bucket" "mybucket" {
   }
 }
 
+# Configuration for the S3 bucket to enable static website hosting
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -20,6 +23,7 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 
+# Configuration for public access block settings for the S3 bucket
 resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -29,6 +33,7 @@ resource "aws_s3_bucket_public_access_block" "website" {
   restrict_public_buckets = false
 }
 
+# Configuration for the S3 bucket policy to allow public read access to the website files
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.mybucket.id
 
@@ -50,25 +55,26 @@ resource "aws_s3_bucket_policy" "website" {
   })
 }
 
+# # Configuration for the S3 bucket objects to upload the website files
+# resource "aws_s3_object" "index" {
+#   bucket = aws_s3_bucket.mybucket.bucket
+#   key    = "index.html"
+#   source = "../../website/index.html"
 
-resource "aws_s3_object" "index" {
-  bucket = aws_s3_bucket.mybucket.bucket
-  key    = "index.html"
-  source = "../../website/index.html"
+#   tags = {
+#     Name        = "index object"
+#     Environment = var.environment
+#   }
+# }
 
-  tags = {
-    Name        = "index object"
-    Environment = var.environment
-  }
-}
+# # Configuration for the S3 bucket objects to upload the website files
+# resource "aws_s3_object" "style" {
+#   bucket = aws_s3_bucket.mybucket.bucket
+#   key    = "style.css"
+#   source = "../../website/style.css"
 
-resource "aws_s3_object" "style" {
-  bucket = aws_s3_bucket.mybucket.bucket
-  key    = "style.css"
-  source = "../../website/style.css"
-
-  tags = {
-    Name        = "style object"
-    Environment = var.environment
-  }
-}
+#   tags = {
+#     Name        = "style object"
+#     Environment = var.environment
+#   }
+# }
