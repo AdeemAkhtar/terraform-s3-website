@@ -21,9 +21,8 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      # Assumes your AWS OIDC role is already configured.
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -32,10 +31,8 @@ jobs:
 
       - name: Deploy Website to S3
         run: |
-          BUCKET_NAME=$(terraform -chdir=terraform/dev output -raw bucket_name)
+          BUCKET_NAME="my-unique-bucket-newmybucket-213214321-dev"
 
-          echo "Deploying website to S3 bucket: $BUCKET_NAME"
-
-          aws s3 sync website/ "s3://$BUCKET_NAME" --delete
+          aws s3 sync website/ "s3://${BUCKET_NAME}/" --delete
 
           echo "Website deployment completed successfully."
