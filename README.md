@@ -1,5 +1,7 @@
 # Automated AWS S3 Static Website Deployment with Terraform & GitHub Actions
 
+![<# alt text #>](ScreenShots/website.png "Screenshot")
+
 An Infrastructure as Code (IaC) project that provisions and manages an AWS S3 static website using Terraform and GitHub Actions. The project demonstrates automated infrastructure validation, deployment and destruction, remote Terraform state management, and secure GitHub-to-AWS authentication using OpenID Connect (OIDC).
 
 ## Project Overview
@@ -8,7 +10,9 @@ This project automates the lifecycle of a static website hosted on Amazon S3. In
 
 GitHub Actions provides separate workflows for continuous integration, deployment, and infrastructure destruction. GitHub OIDC enables workflows to assume an AWS IAM role without storing long-lived AWS access keys in GitHub secrets.
 
-**Live website:** `http://<your-s3-website-endpoint>`
+![<# alt text #>](ScreenShots/Website_url.png "Screenshot")
+
+**Live website:** `http://my-unique-bucket-newmybucket-213214321-dev.s3-website-us-east-1.amazonaws.com/`
 
 **GitHub repository:** https://github.com/AdeemAkhtar/terraform-s3-website
 
@@ -25,6 +29,8 @@ GitHub Actions provides separate workflows for continuous integration, deploymen
 - Make infrastructure changes reproducible and easier to review.
 
 ## Architecture
+
+![<# alt text #>](ScreenShots/Architecture.png "Screenshot")
 
 ```mermaid
 flowchart TD
@@ -60,6 +66,8 @@ The S3 website endpoint serves HTTP traffic. HTTPS and a custom domain are poten
 | Bash | Shell commands and automation support |
 
 ## Repository Structure
+
+![<# alt text #>](ScreenShots/Repository_structure.png "Screenshot")
 
 ```text
 terraform-s3-website/
@@ -101,12 +109,14 @@ Terraform declares the AWS resources required for the website, including:
 - S3 objects for `index.html`, `index.html` and `style.css`.
 - Outputs for useful deployment information, including the bucket name and website endpoint.
 
+![<# alt text #>](ScreenShots/AWS_Web_S3.png "Screenshot")
+
 Terraform references are used to connect resources and express dependencies rather than manually entering resource identifiers wherever possible.
 
 ### 2. Remote State Management
 
 Terraform state is stored remotely in a dedicated S3 bucket rather than being treated as a local file.
-
+![<# alt text #>](ScreenShots/AWS_Terraform_Remote_State_S3.png "Screenshot")
 Backend configuration:
 
 - **Bucket:** `terraform-state-adeem-2026`
@@ -130,7 +140,7 @@ Typical checks include:
 5. Initialize Terraform.
 6. Validate the configuration.
 7. Generate a Terraform plan.
-
+![<# alt text #>](ScreenShots/github_action_ci.png "Screenshot")
 This provides early feedback on formatting, configuration errors and proposed infrastructure changes.
 
 ### 4. Secure Authentication with GitHub OIDC
@@ -162,6 +172,10 @@ Its intended lifecycle is:
 6. Generate a Terraform plan.
 7. Apply the planned changes.
 8. Retrieve the website endpoint from Terraform outputs.
+
+![<# alt text #>](ScreenShots/github_action_cd.png "Screenshot")
+
+![<# alt text #>](ScreenShots/github_action_web_deployment.png "Screenshot")
 
 A deployment is complete only after the workflow succeeds and the website is verified in a browser. If the workflow uses a saved plan and a separate approval job, document that approval gate only after it has been implemented and tested.
 
