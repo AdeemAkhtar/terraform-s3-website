@@ -1,6 +1,6 @@
 # Automated AWS S3 Static Website Deployment with Terraform & GitHub Actions
 
-![<# alt text #>](ScreenShots/website.png "Screenshot")
+![<# alt text #>](ScreenShots/Website.png "Screenshot")
 
 An Infrastructure as Code (IaC) project that provisions and manages an AWS S3 static website using Terraform and GitHub Actions. The project demonstrates automated infrastructure validation, deployment and destruction, remote Terraform state management, and secure GitHub-to-AWS authentication using OpenID Connect (OIDC).
 
