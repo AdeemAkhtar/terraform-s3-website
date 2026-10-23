@@ -24,3 +24,5 @@ logs/
 # IDE
 .vscode/
 .idea/
+
+!**/.terraform.lock.hcl
