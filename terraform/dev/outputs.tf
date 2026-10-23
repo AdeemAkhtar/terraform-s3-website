@@ -1,15 +1,24 @@
-# Output values for the S3 bucket
 output "bucket_name" {
-  value = aws_s3_bucket.mybucket.id
+  description = "Name of the private website bucket."
+  value       = module.static_site.bucket_name
 }
 
-# Output value for the S3 bucket ARN
 output "bucket_arn" {
-  value = aws_s3_bucket.mybucket.arn
+  description = "ARN of the private website bucket."
+  value       = module.static_site.bucket_arn
 }
 
-# Output value for the S3 bucket website endpoint
+output "cloudfront_distribution_id" {
+  description = "ID of the CloudFront distribution."
+  value       = module.static_site.cloudfront_distribution_id
+}
+
+output "cloudfront_domain_name" {
+  description = "Default CloudFront domain name."
+  value       = module.static_site.cloudfront_domain_name
+}
+
 output "website_url" {
-  description = "The URL of the S3 bucket website"
-  value       = aws_s3_bucket_website_configuration.website.website_endpoint
+  description = "HTTPS URL of the website."
+  value       = module.static_site.website_url
 }
