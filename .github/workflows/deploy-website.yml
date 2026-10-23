@@ -7,10 +7,6 @@ on:
       - main
     paths:
       - 'website/**'
-      - 'terraform/dev/**'
-      - 'terraform/modules/**'
-      - '.github/workflows/deploy-website.yml'
-
   workflow_dispatch:
 
 permissions:
