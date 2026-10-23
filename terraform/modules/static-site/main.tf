@@ -32,6 +32,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
     apply_server_side_encryption_by_default {
       sse_algorithm = "AES256"
     }
+
+    bucket_key_enabled       = false
+    blocked_encryption_types = ["SSE-C"]
   }
 }
 
@@ -44,16 +47,17 @@ resource "aws_cloudfront_origin_access_control" "site" {
 }
 
 resource "aws_cloudfront_distribution" "site" {
-  enabled         = true
-  comment         = "${var.environment} static website"
+  enabled             = true
+  comment             = "${var.environment} static website"
   default_root_object = "index.html"
-  price_class     = var.price_class
-  is_ipv6_enabled = true
+  price_class         = var.price_class
+  is_ipv6_enabled     = true
 
   origin {
-    domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
-    origin_id                = "s3-${aws_s3_bucket.site.id}"
-    origin_access_control_id = aws_cloudfront_origin_access_control.site.id
+    domain_name                 = aws_s3_bucket.site.bucket_regional_domain_name
+    origin_id                   = "s3-${aws_s3_bucket.site.id}"
+    origin_access_control_id    = aws_cloudfront_origin_access_control.site.id
+    response_completion_timeout = 0
 
     s3_origin_config {
       origin_access_identity = ""
@@ -78,9 +82,9 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   viewer_certificate {
-  cloudfront_default_certificate = true
-  minimum_protocol_version       = "TLSv1.2_2021"
-}
+    cloudfront_default_certificate = true
+    minimum_protocol_version       = "TLSv1"
+  }
 
   tags = {
     Environment = var.environment
